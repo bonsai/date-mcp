@@ -1,0 +1,69 @@
+version: 1
+place:
+  name: 五反田駅
+  role: date-test-city
+  status: provisional
+  purpose: "date-mcp の都市継続性とAXフローを試す観測地点"
+
+observation:
+  daytime: high
+  conversation: high
+  walking: high
+  art: medium
+  dinner: high
+  late_night: high
+  branching: high
+
+materials:
+  cafe:
+    - name: Café au lait Tokyo 五反田
+      role: start_or_pause
+    - name: MOBaCAFE
+      role: casual_pause
+  walk:
+    - name: 五反田ふれあい水辺広場
+      role: conversation_space
+    - name: 五反田公園
+      role: conversation_space
+  art:
+    - name: 都営浅草線五反田駅コンコースギャラリー
+      role: shared_attention
+    - name: EVERANDART
+      role: gallery_candidate
+  dinner:
+    - name: TRATTORIA ROMANO
+      role: evening_meal
+    - name: なっぱごちそう
+      role: evening_meal
+  night:
+    - name: モルゲン 五反田駅前店
+      role: late_meal
+    - name: スゴイサウナ五反田駅前
+      role: late_night_option
+    - name: プライベートサウナ Ladle
+      role: private_option
+
+flow:
+  - station
+  - cafe
+  - walk_or_art
+  - dinner
+  - night_option
+
+ax:
+  principle: "最初からデートのゴールを固定せず、会話・時間・疲労・興味の変化に応じて次の選択肢を残す"
+  next_action_rule: "点を推薦するのではなく、その時点で自然に接続できる次の点を提示する"
+  reverse_view:
+    - "夜まで残ることが本当に望ましいとは限らない"
+    - "駅近だけで完結させるより、途中の余白が体験を変える可能性がある"
+    - "候補の営業状況や閉店・改修は時点データとして検証する必要がある"
+
+viability:
+  event: unknown
+  food: available
+  evening: available
+  transport: available
+  private_stay: "要検証"
+  city_continuation: provisional_high
+
+research_note: "仮データ。営業時間・営業状況・イベント・宿泊/プライベート滞在候補は実利用前に再検証する。"
