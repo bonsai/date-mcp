@@ -13,6 +13,7 @@ observation:
   dinner: high
   late_night: high
   branching: high
+  music: high
 
 materials:
   cafe:
@@ -35,6 +36,15 @@ materials:
       role: evening_meal
     - name: なっぱごちそう
       role: evening_meal
+  music:
+    - name: music Club&Bar VRAIMENT
+      role: dj_club_bar
+      station_walk: "五反田駅から徒歩圏"
+      source_status: verified_web
+    - name: Soul Music BAR Ali-Ollie!!!!
+      role: soul_music_record_bar
+      station_walk: "五反田駅東口徒歩2分"
+      source_status: verified_web
   night:
     - name: モルゲン 五反田駅前店
       role: late_meal
@@ -48,7 +58,16 @@ flow:
   - cafe
   - walk_or_art
   - dinner
+  - music
   - night_option
+
+music_observation:
+  VRAIMENT:
+    type: "club_bar / DJ"
+    note: "公式サイトでDJイベントスケジュールを確認。五反田の夜を音楽体験へ接続する候補。"
+  Ali-Ollie:
+    type: "soul_music_bar / analog_record"
+    note: "公式サイトでアナログレコードによる選曲、五反田駅東口徒歩2分、18:00-23:30を確認。"
 
 ax:
   principle: "最初からデートのゴールを固定せず、会話・時間・疲労・興味の変化に応じて次の選択肢を残す"
@@ -57,13 +76,15 @@ ax:
     - "夜まで残ることが本当に望ましいとは限らない"
     - "駅近だけで完結させるより、途中の余白が体験を変える可能性がある"
     - "候補の営業状況や閉店・改修は時点データとして検証する必要がある"
+    - "DJバーとレコードバーは同じ音楽カテゴリでも体験の温度が異なる"
 
 viability:
   event: unknown
   food: available
   evening: available
   transport: available
+  music: available
   private_stay: "要検証"
   city_continuation: provisional_high
 
-research_note: "仮データ。営業時間・営業状況・イベント・宿泊/プライベート滞在候補は実利用前に再検証する。"
+research_note: "仮データ。営業時間・営業状況・イベント・宿泊/プライベート滞在候補は実利用前に再検証する。DJ/音楽候補を追加。"
