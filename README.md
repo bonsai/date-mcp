@@ -4,43 +4,54 @@
 
 ## Concept
 
-`date-mcp` is an agent-first REST service for discovering intimate, private, or relaxed date options.
+`date-mcp` is an agent-first REST service for discovering date options from natural-language intent.
 
-- REST only
+- REST / agent-first
 - semantic natural-language search
+- event-centered dates are first-class
 - intimacy is an optional signal
-- intimate mode activates when the user's outing context passes an intimacy threshold
-- lodging/private-stay options may be included as ambiguous semantic categories
+- `POST /plan` can compose an outing around an event
 
 ## Relationship
 
+- `stage-search`: what is happening / event discovery
+- `date-mcp`: what kind of two-person time they want and how to compose it
 - `odekake-mcp`: where to go
-- `date-mcp`: what kind of two-person time they want
 
 ```text
 natural language
       ↓
 semantic intent
       ↓
-outing options
+STAGE / event candidates
       ↓
-intimacy signal
+      date-mcp
       ↓
-threshold passed?
-   ┌──yes──→ intimate workflow
-   └──no───→ normal date workflow
+ ┌────┼──────────────┐
+ meet event dinner walk/cafe
+ └────┴──────────────┘
 ```
 
-## Example
+## Date Agent
+
+`scripts/date_agent.py` ranks event candidates by date, area, category and budget and emits a `date-plan` JSON. The implementation was moved here from STAGE-Search so that STAGE-Search remains the event discovery layer while date-mcp owns the date-planning intent. fileciteturn26file0
+
+Example:
+
+```bash
+python scripts/date_agent.py \
+  --events ../stage-search/data/events.jsonl \
+  --date 2026-09-19 \
+  --area 新宿 \
+  --category owarai \
+  --output data/date-plans.json
+```
+
+Output contains the selected events plus the planning sequence:
 
 ```json
-POST /search
-{
-  "query": "明日、五反田で二人でゆっくりできるところ"
-}
+["meet", "event", "dinner", "walk_or_cafe"]
 ```
-
-The agent can infer signals such as privacy, quietness, duration, budget, time of day, and distance without requiring users to explicitly say "いちゃいちゃ".
 
 ## API
 
@@ -55,4 +66,4 @@ Initial REST surface:
 
 **曖昧な気持ちは曖昧なまま受け取り、検索可能な意味へ変換する。**
 
-The repository is intentionally agent/workflow-first. MCP can be added as an adapter later; the core remains REST.
+`date-mcp` owns the **date intent / planning layer**. Event discovery remains upstream.
